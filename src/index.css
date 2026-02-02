@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Industrial Truck E-commerce Design System */
+    
+    /* Primary - Deep Steel Blue */
+    --primary: 215 50% 23%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Metallic Silver */
+    --secondary: 210 10% 85%;
+    --secondary-foreground: 215 50% 15%;
+    
+    /* Accent - Industrial Orange */
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Background layers */
+    --background: 220 15% 97%;
+    --foreground: 215 25% 15%;
+    
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+    
+    /* Muted surfaces */
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 15% 45%;
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+    
+    /* Destructive */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 215 50% 23%;
+    
+    /* Radius */
+    --radius: 0.5rem;
+    
+    /* Custom tokens */
+    --steel-dark: 215 30% 12%;
+    --steel-medium: 215 20% 25%;
+    --steel-light: 210 15% 40%;
+    --chrome: 210 10% 75%;
+    --rust-orange: 25 95% 53%;
+    --warning-yellow: 45 100% 51%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(215 50% 15%) 0%, hsl(215 30% 25%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 15% 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(35 100% 55%) 100%);
+    --gradient-steel: linear-gradient(180deg, hsl(215 30% 18%) 0%, hsl(215 40% 12%) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(215 30% 12% / 0.08);
+    --shadow-md: 0 8px 24px -8px hsl(215 30% 12% / 0.12);
+    --shadow-lg: 0 16px 48px -12px hsl(215 30% 12% / 0.18);
+    --shadow-glow: 0 0 40px hsl(25 95% 53% / 0.25);
+    
+    /* Sidebar */
+    --sidebar-background: 215 30% 12%;
+    --sidebar-foreground: 210 15% 92%;
+    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 20% 20%;
+    --sidebar-accent-foreground: 210 15% 92%;
+    --sidebar-border: 215 20% 20%;
+    --sidebar-ring: 25 95% 53%;
+  }
+
+  .dark {
+    --primary: 210 40% 98%;
+    --primary-foreground: 215 50% 15%;
+    
+    --secondary: 215 20% 20%;
+    --secondary-foreground: 210 15% 92%;
+    
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    
+    --background: 215 30% 8%;
+    --foreground: 210 15% 92%;
+    
+    --card: 215 25% 12%;
+    --card-foreground: 210 15% 92%;
+    
+    --muted: 215 20% 18%;
+    --muted-foreground: 210 10% 60%;
+    
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 15% 92%;
+    
+    --border: 215 20% 20%;
+    --input: 215 20% 20%;
+    --ring: 25 95% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-industrial {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-accent text-accent-foreground font-semibold 
+           rounded-md transition-all duration-300 
+           hover:shadow-lg hover:scale-[1.02] active:scale-[0.98];
+  }
+  
+  .btn-steel {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-primary text-primary-foreground font-semibold 
+           rounded-md transition-all duration-300 
+           hover:bg-primary/90;
+  }
+  
+  .card-truck {
+    @apply bg-card rounded-lg overflow-hidden shadow-md 
+           transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .tag-steel {
+    @apply inline-flex items-center px-3 py-1 text-xs font-medium 
+           bg-muted text-muted-foreground rounded-full;
+  }
+  
+  .input-industrial {
+    @apply w-full px-4 py-3 bg-card border border-border rounded-md 
+           text-foreground placeholder:text-muted-foreground 
+           focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent 
+           transition-all duration-200;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-bold text-foreground;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-warning;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
