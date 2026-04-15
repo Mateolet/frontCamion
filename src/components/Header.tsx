@@ -9,6 +9,7 @@ export const Header = () => {
   const navLinks = [
     { name: "Inicio", href: "/" },
     { name: "Catálogo", href: "/catalogo" },
+    { name: "Referencias", href: "/referencias" },
     { name: "Contacto", href: "/contacto" },
   ];
 
@@ -22,10 +23,10 @@ export const Header = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-display font-bold text-primary-foreground tracking-wide">
-              TRUCK<span className="text-accent">MARKET</span>
+              LOGI<span className="text-accent">BAL</span>
             </span>
             <span className="text-[10px] text-secondary uppercase tracking-widest">
-              Compra & Venta de Camiones
+              Camiones y Acoplados
             </span>
           </div>
         </Link>
@@ -68,8 +69,8 @@ export const Header = () => {
                 {link.name}
               </Link>
             ))}
-            <Button variant="industrial" className="w-full font-display mt-4">
-              Publicar Camión
+            <Button asChild variant="industrial" className="w-full font-display mt-4">
+              <Link to="/referencias">Ver referencias</Link>
             </Button>
           </div>
         </div>

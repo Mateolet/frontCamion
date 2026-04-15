@@ -10,7 +10,9 @@ import {
   Filter,
   MapPin,
   Gauge,
-  Calendar
+  Calendar,
+  SlidersHorizontal,
+  X
 } from "lucide-react";
 
 /* ===============================
@@ -38,6 +40,14 @@ export default function TruckCatalog() {
   const [searchParams] = useSearchParams();
   const [trucksData, setTrucksData] = useState<TruckAPI[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      maximumFractionDigits: 0,
+    }).format(price);
 
   const defaultFilters = {
     search: "",
@@ -94,7 +104,7 @@ export default function TruckCatalog() {
           anio: Number(t.anio),
           precio: Number(t.precio),
           kilometros: Number(t.kilometros),
-          ubicacion: t.ubicacion ?? "Sin ubicacion",
+          ubicacion: t.ubicacion ?? "Sin ubicación",
           combustible: t.combustible,
           condicion: t.condicion === "nuevo" ? "new" : "used",
           imagen:
@@ -102,7 +112,7 @@ export default function TruckCatalog() {
             t.imagenes?.[0]?.url ??
             "/no-image.jpg",
           marca: {
-            nombre: t.marca.nombre
+            nombre: t.marca?.nombre ?? "Sin marca"
           }
         }));
 
@@ -151,26 +161,50 @@ export default function TruckCatalog() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+      <main className="container mx-auto px-4 py-6 md:py-10">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <span className="text-sm font-semibold uppercase text-accent">Catálogo</span>
+            <h1 className="mt-1 text-3xl font-display font-bold leading-tight md:text-4xl">
+              Camiones disponibles
+            </h1>
+          </div>
 
-          {/* SIDEBAR */}
-          <aside className="card-truck p-6 h-fit sticky top-24">
-            <h2 className="text-xl font-display font-bold mb-4 flex items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full justify-center sm:w-auto lg:hidden"
+            onClick={() => setShowMobileFilters((current) => !current)}
+          >
+            {showMobileFilters ? <X className="h-4 w-4" /> : <SlidersHorizontal className="h-4 w-4" />}
+            {showMobileFilters ? "Cerrar filtros" : "Filtrar catálogo"}
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-8">
+          <aside
+            className={`card-truck h-fit p-5 lg:sticky lg:top-24 lg:block ${
+              showMobileFilters ? "block" : "hidden"
+            }`}
+          >
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-display font-bold">
               <Filter className="h-5 w-5 text-accent" />
               Filtros
             </h2>
 
-            <Input
-              placeholder="Buscar marca o modelo..."
-              value={filters.search}
-              onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-              className="mb-4 border-border"
-            />
+            <div className="relative mb-4">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Buscar marca o modelo..."
+                value={filters.search}
+                onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+                className="border-border pl-9"
+              />
+            </div>
 
             <label className="text-sm text-muted-foreground">Marca</label>
             <select
-              className="w-full p-2 rounded-lg  border border-border mb-4"
+              className="mb-4 mt-1 w-full rounded-lg border border-border bg-card p-3 text-sm"
               value={filters.brand}
               onChange={(e) => setFilters({ ...filters, brand: e.target.value })}
             >
@@ -182,7 +216,7 @@ export default function TruckCatalog() {
 
             <label className="text-sm text-muted-foreground">Estado</label>
             <select
-              className="w-full p-2 rounded-lg  border border-border mb-4"
+              className="mb-4 mt-1 w-full rounded-lg border border-border bg-card p-3 text-sm"
               value={filters.condition}
               onChange={(e) => setFilters({ ...filters, condition: e.target.value })}
             >
@@ -201,7 +235,7 @@ export default function TruckCatalog() {
               onValueChange={(v) => setFilters({ ...filters, yearRange: v })}
             />
 
-            <div className="flex justify-between text-sm mt-1 mb-4">
+            <div className="mt-1 mb-4 flex justify-between text-sm">
               <span>{filters.yearRange[0]}</span>
               <span>{filters.yearRange[1]}</span>
             </div>
@@ -216,7 +250,7 @@ export default function TruckCatalog() {
               onValueChange={(v) => setFilters({ ...filters, mileageRange: v })}
             />
 
-            <div className="flex justify-between text-sm mt-1 mb-4">
+            <div className="mt-1 mb-4 flex justify-between text-sm">
               <span>{filters.mileageRange[0].toLocaleString()} km</span>
               <span>{filters.mileageRange[1].toLocaleString()} km</span>
             </div>
@@ -230,64 +264,80 @@ export default function TruckCatalog() {
               onValueChange={(v) => setFilters({ ...filters, priceRange: v })}
             />
 
-            <div className="flex justify-between text-sm mt-1 mb-4">
-              <span>USD {filters.priceRange[0].toLocaleString()}</span>
-              <span>USD {filters.priceRange[1].toLocaleString()}</span>
+            <div className="mt-1 mb-4 flex justify-between gap-3 text-xs sm:text-sm">
+              <span>{formatPrice(filters.priceRange[0])}</span>
+              <span>{formatPrice(filters.priceRange[1])}</span>
             </div>
 
-            <Button variant="industrial" className="w-full mt-6">
+            <Button
+              type="button"
+              variant="industrial"
+              className="mt-6 w-full"
+              onClick={() => setShowMobileFilters(false)}
+            >
               Aplicar filtros
             </Button>
           </aside>
 
-          {/* GRID */}
-          <section className="lg:col-span-3">
-            <h1 className="text-3xl font-display font-bold mb-6">Catalogo de Camiones</h1>
+          <section className="min-w-0">
+            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
+                {loading ? "Cargando camiones..." : `${filteredTrucks.length} unidades encontradas`}
+              </p>
+            </div>
 
-            {loading && <p>Cargando camiones...</p>}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {filteredTrucks.map(truck => (
-                <div key={truck.id} className="card-truck overflow-hidden group cursor-pointer">
-                  <Link to={`/camion/${truck.id}`}>
-                    <div className="relative h-48 overflow-hidden">
+                <article key={truck.id} className="card-truck group overflow-hidden">
+                  <Link to={`/camion/${truck.id}`} className="block">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                       <img
                         src={truck.imagen}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-all"
+                        alt={`${truck.marca.nombre} ${truck.modelo}`}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
                       />
                       {truck.condicion === "new" && (
-                        <span className="absolute top-2 left-2 px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">
+                        <span className="absolute left-3 top-3 rounded-md bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
                           Nuevo
                         </span>
                       )}
                     </div>
 
-                    <div className="p-5 space-y-2">
-                      <p className="text-accent text-sm font-semibold">{truck.marca.nombre}</p>
-                      <h3 className="text-2xl font-display font-bold">{truck.modelo}</h3>
-
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        {truck.anio}
-                        <Gauge className="h-4 w-4 ml-3" />
-                        {truck.kilometros.toLocaleString()} km
+                    <div className="space-y-3 p-4 sm:p-5">
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold uppercase text-accent">{truck.marca.nombre}</p>
+                        <h3 className="mt-1 break-words text-2xl font-display font-bold leading-tight text-foreground">
+                          {truck.modelo}
+                        </h3>
                       </div>
 
-                      <p className="text-xl font-bold text-accent mt-2">
-                        USD {truck.precio.toLocaleString()}
+                      <div className="grid grid-cols-2 gap-3 text-sm text-muted-foreground">
+                        <span className="flex min-w-0 items-center gap-2">
+                          <Calendar className="h-4 w-4 shrink-0 text-steel-light" />
+                          {truck.anio}
+                        </span>
+                        <span className="flex min-w-0 items-center gap-2">
+                          <Gauge className="h-4 w-4 shrink-0 text-steel-light" />
+                          <span className="truncate">{truck.kilometros.toLocaleString()} km</span>
+                        </span>
+                      </div>
+
+                      <p className="text-xl font-bold text-accent">
+                        {formatPrice(truck.precio)}
                       </p>
 
-                      <div className="flex items-center gap-2 text-muted-foreground mt-2">
-                        <MapPin className="h-4 w-4" />
-                        {truck.ubicacion}
+                      <div className="flex min-w-0 items-center gap-2 text-sm text-muted-foreground">
+                        <MapPin className="h-4 w-4 shrink-0" />
+                        <span className="truncate">{truck.ubicacion}</span>
                       </div>
 
-                      <Button variant="industrial" className="w-full mt-4">
+                      <span className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-all duration-300 group-hover:shadow-glow">
                         Ver Detalle
-                      </Button>
+                      </span>
                     </div>
                   </Link>
-                </div>
+                </article>
               ))}
             </div>
 

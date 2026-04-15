@@ -39,20 +39,20 @@ export const HeroSection = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/20 border border-accent/40 rounded-full backdrop-blur-sm animate-fade-in">
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
             <span className="text-sm font-medium text-accent">
-              +500 camiones disponibles
+              Más de 30 años de trayectoria
             </span>
           </div>
 
           {/* Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight animate-slide-up">
-            El marketplace <br />
-            <span className="text-accent">más grande</span> de camiones
+            Camiones y acoplados <br />
+            <span className="text-accent">con respaldo real</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-secondary max-w-xl animate-slide-up" style={{ animationDelay: "0.1s" }}>
-            Compra o vende camiones con total confianza. Miles de unidades verificadas 
-            de las mejores marcas del mercado.
+          <p className="text-lg md:text-xl text-secondary max-w-2xl animate-slide-up" style={{ animationDelay: "0.1s" }}>
+            Somos una empresa familiar con más de 30 años de experiencia en la venta de camiones y acoplados.
+            Trabajamos con esfuerzo, honestidad y compromiso para brindarte un asesoramiento cercano, personalizado y transparente.
           </p>
 
           {/* Search Box */}
@@ -144,9 +144,9 @@ export const HeroSection = () => {
           {/* Stats */}
           <div className="flex flex-wrap gap-8 pt-4 animate-slide-up" style={{ animationDelay: "0.3s" }}>
             {[
-              { value: "500+", label: "Camiones" },
-              { value: "150+", label: "Vendedores" },
-              { value: "98%", label: "Satisfacción" },
+              { value: "500+", label: "Unidades" },
+              { value: "30+", label: "Años de experiencia" },
+              { value: "98%", label: "Confianza" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-3xl font-display font-bold text-accent">{stat.value}</div>

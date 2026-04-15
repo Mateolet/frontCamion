@@ -33,15 +33,15 @@ export const TruckCard = ({
   const [isFavorite, setIsFavorite] = useState(false);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("es-MX", {
+    return new Intl.NumberFormat("es-AR", {
       style: "currency",
-      currency: "USD",
+      currency: "ARS",
       maximumFractionDigits: 0,
     }).format(price);
   };
 
   const formatMileage = (km: number) => {
-    return new Intl.NumberFormat("es-MX").format(km);
+    return new Intl.NumberFormat("es-AR").format(km);
   };
 
   return (

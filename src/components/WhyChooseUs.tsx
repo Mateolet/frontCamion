@@ -3,33 +3,33 @@ import { Shield, Truck, Users, Headphones, CheckCircle, Award } from "lucide-rea
 const features = [
   {
     icon: Shield,
-    title: "Garantía Verificada",
-    description: "Todos nuestros camiones pasan por una inspección de 150 puntos antes de ser publicados.",
+    title: "Confianza y respaldo",
+    description: "Trabajamos sobre valores de honestidad, compromiso y transparencia en cada operación.",
   },
   {
     icon: Truck,
-    title: "Amplio Catálogo",
-    description: "Más de 500 unidades de las principales marcas: Volvo, Scania, Mercedes-Benz y más.",
+    title: "Amplio catálogo",
+    description: "Contamos con camiones y acoplados seleccionados de las principales marcas del mercado.",
   },
   {
     icon: Users,
-    title: "Vendedores Certificados",
-    description: "Red de vendedores verificados con historial comprobado y excelentes reseñas.",
+    title: "Atención personalizada",
+    description: "Acompañamos a cada cliente con un trato cercano y asesoramiento a medida.",
   },
   {
     icon: Headphones,
-    title: "Soporte 24/7",
-    description: "Equipo de expertos disponible para asesorarte en cada paso de tu compra.",
+    title: "Experiencia real",
+    description: "Combinamos la trayectoria de una empresa familiar con la visión de una nueva generación.",
   },
   {
     icon: CheckCircle,
-    title: "Financiamiento Flexible",
-    description: "Opciones de crédito adaptadas a tu negocio con tasas competitivas.",
+    title: "Operaciones claras",
+    description: "Brindamos información precisa y un proceso serio para que compres con tranquilidad.",
   },
   {
     icon: Award,
-    title: "Mejor Precio",
-    description: "Comparamos precios del mercado para garantizarte la mejor oferta.",
+    title: "Compromiso con el cliente",
+    description: "Nuestro objetivo es encontrar la mejor solución para cada necesidad de trabajo y transporte.",
   },
 ];
 
@@ -43,10 +43,10 @@ export const WhyChooseUs = () => {
             ¿Por qué elegirnos?
           </span>
           <h2 className="text-3xl md:text-4xl font-display font-bold mt-3">
-            La plataforma líder en <span className="text-accent">compra-venta</span> de camiones
+            Experiencia, respaldo y <span className="text-accent">atención cercana</span>
           </h2>
           <p className="text-secondary mt-4">
-            Más de 10 años conectando compradores y vendedores en toda Latinoamérica.
+            Somos una empresa familiar dedicada a la venta de camiones y acoplados, acompañando cada operación con seriedad y transparencia.
           </p>
         </div>
 

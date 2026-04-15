@@ -3,26 +3,16 @@ import { useParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import TruckLoader from "@/components/TruckLoader";
 
 import {
   ChevronLeft,
   ChevronRight,
-  Heart,
-  Share2,
   MapPin,
   Calendar,
   Gauge,
   Fuel,
-  Truck,
-  Settings,
-  Shield,
   Phone,
-  Mail,
-  MessageSquare,
-  Check
 } from "lucide-react";
 
 /* ===========================
@@ -67,18 +57,9 @@ interface TruckDetailAPI {
 export default function TruckDetail() {
   const { id } = useParams();
 
-  console.log(id)
   const [truck, setTruck] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
 
   /* ===========================
      Fetch camion
@@ -120,19 +101,9 @@ export default function TruckDetail() {
             fuelCapacity: t.capacidad_tanque ?? "No informado",
           },
           features: [],
-          seller: {
-            name: "Vendedor",
-            phone: "",
-            email: "",
-            verified: true,
-          },
         };
 
         setTruck(normalizado);
-        setFormData(f => ({
-          ...f,
-          message: `Hola, estoy interesado en el ${normalizado.brand} ${normalizado.model} ${normalizado.year}. Me gustaria recibir mas informacion.`,
-        }));
         setLoading(false);
       })
       .catch(err => {
@@ -145,10 +116,10 @@ export default function TruckDetail() {
   if (!truck) return <p className="p-10">Camion no encontrado</p>;
 
   const formatPrice = (price: number) =>
-    new Intl.NumberFormat("es-MX", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(price);
+    new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(price);
 
   const formatMileage = (km: number) =>
-    new Intl.NumberFormat("es-MX").format(km);
+    new Intl.NumberFormat("es-AR").format(km);
 
   const nextImage = () =>
     setCurrentImage((prev) => (prev + 1) % truck.images.length);
@@ -228,20 +199,27 @@ export default function TruckDetail() {
             }
             </div>
 
-          {/* Formulario */}
-          <div className="card-truck p-6 sticky top-24">
-            <form className="space-y-4">
-              <Input placeholder="Nombre" />
-              <Input placeholder="Email" />
-              <Input placeholder="Telefono" />
-              <Textarea
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-              />
-              <Button className="w-full">Enviar consulta</Button>
-            </form>
+          {/* Contacto */}
+          <div className="card-truck p-6 sticky top-24 space-y-4">
+            <h2 className="text-2xl font-display font-bold">Consultanos por esta unidad</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Te acompañamos con atención personalizada y transparente para ayudarte a encontrar la mejor opción según tu necesidad.
+            </p>
+
+            <div className="rounded-xl border border-border p-4 space-y-3">
+              <div className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-accent" />
+                <span className="font-medium">+54 9 11 66414662</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 text-accent" />
+                Buenos Aires, Argentina
+              </div>
+            </div>
+
+            <Button asChild className="w-full">
+              <a href="tel:+5491166414662">Llamar ahora</a>
+            </Button>
           </div>
         </div>
       </main>
