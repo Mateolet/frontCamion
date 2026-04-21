@@ -49,14 +49,16 @@ export default function TruckCatalog() {
       maximumFractionDigits: 0,
     }).format(price);
 
+  const MAX_YEAR = 2026;
+  const MAX_MILEAGE = 800000;
   const MAX_PRICE = 500000000;
 
   const defaultFilters = {
     search: "",
     brand: "",
     condition: "",
-    yearRange: [2000, 2026],
-    mileageRange: [0, 800000],
+    yearRange: [2000, MAX_YEAR],
+    mileageRange: [0, MAX_MILEAGE],
     priceRange: [0, MAX_PRICE],
   };
 
@@ -84,11 +86,11 @@ export default function TruckCatalog() {
       search,
       yearRange:
         year !== null
-          ? [clamp(year, 2000, 2025), clamp(year, 2000, 2025)]
+          ? [clamp(year, 2000, MAX_YEAR), clamp(year, 2000, MAX_YEAR)]
           : defaultFilters.yearRange,
       mileageRange:
         mileage !== null
-          ? [0, clamp(mileage, 0, 500000)]
+          ? [0, clamp(mileage, 0, MAX_MILEAGE)]
           : defaultFilters.mileageRange,
     });
   }, [searchParams]);
@@ -231,7 +233,7 @@ export default function TruckCatalog() {
             <Slider
               value={filters.yearRange}
               min={2000}
-              max={2025}
+              max={MAX_YEAR}
               step={1}
               minStepsBetweenThumbs={1}
               onValueChange={(v) => setFilters({ ...filters, yearRange: v })}
@@ -246,7 +248,7 @@ export default function TruckCatalog() {
             <Slider
               value={filters.mileageRange}
               min={0}
-              max={500000}
+              max={MAX_MILEAGE}
               step={5000}
               minStepsBetweenThumbs={1}
               onValueChange={(v) => setFilters({ ...filters, mileageRange: v })}
