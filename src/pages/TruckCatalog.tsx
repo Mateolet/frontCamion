@@ -49,13 +49,15 @@ export default function TruckCatalog() {
       maximumFractionDigits: 0,
     }).format(price);
 
+  const MAX_PRICE = 500000000;
+
   const defaultFilters = {
     search: "",
     brand: "",
     condition: "",
-    yearRange: [2000, 2025],
-    mileageRange: [0, 500000],
-    priceRange: [0, 100000000],
+    yearRange: [2000, 2026],
+    mileageRange: [0, 800000],
+    priceRange: [0, MAX_PRICE],
   };
 
   const [filters, setFilters] = useState(defaultFilters);
@@ -258,7 +260,7 @@ export default function TruckCatalog() {
             <Slider
               value={filters.priceRange}
               min={0}
-              max={100000000}
+              max={MAX_PRICE}
               step={500000}
               minStepsBetweenThumbs={1}
               onValueChange={(v) => setFilters({ ...filters, priceRange: v })}
